@@ -1,4 +1,5 @@
 import random
+import os
 import pygame
 from pygame.locals import *
 
@@ -12,6 +13,7 @@ WINDOW_SIZE = {
     '2560x1600': (2560, 1600)
 }
 
+
 def fill(surface, color):
     w, h = surface.get_size()
     r, g, b, _ = color
@@ -20,19 +22,24 @@ def fill(surface, color):
             a = surface.get_at((x, y))[3]
             surface.set_at((x, y), pygame.Color(r, g, b, a))
 
+
 def main():
-    resolution = WINDOW_SIZE['1920x1080']
+    resolution = WINDOW_SIZE['800x600']
     speed = [1, 1]
     colors = [
-            pygame.Color(60, 240, 75),
-            pygame.Color(250, 65, 65),
-            pygame.Color(65, 90, 240),
-            pygame.Color(255, 255, 255),
-            pygame.Color(255, 240, 0)]
-    window = pygame.display.set_mode(resolution, FULLSCREEN)
+        pygame.Color(60, 240, 75),
+        pygame.Color(250, 65, 65),
+        pygame.Color(65, 90, 240),
+        pygame.Color(255, 255, 255),
+        pygame.Color(255, 240, 0)
+    ]
+    window = pygame.display.set_mode(resolution, vsync=1)
     pygame.mouse.set_visible(0)
     pygame.display.set_caption("PowerDVD")
-    logo = pygame.image.load("assets//logo.png")
+    logopath = os.path.abspath(os.path.join('assets', 'logo.png'))
+    if (not os.path.exists(logopath)):
+        raise FileNotFoundError('logo.png not found')
+    logo = pygame.image.load(logopath)
     logo = pygame.transform.smoothscale(logo, (360, 180))
     obj = logo.get_rect()
     clock = pygame.time.Clock()
@@ -56,7 +63,8 @@ def main():
         window.blit(logo, obj)
         clock.tick(60)
         pygame.display.flip()
-    
+
+
 if __name__ == "__main__":
     pygame.init()
     main()
