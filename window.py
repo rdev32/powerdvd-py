@@ -2,6 +2,16 @@ import random
 import pygame
 from pygame.locals import *
 
+WINDOW_SIZE = {
+    '800x600': (800, 600),
+    '1024x768': (1024, 768),
+    '1280x800': (1280, 720),
+    '1366x768': (1366, 768),
+    '1680x1050': (1680, 1050),
+    '1920x1080': (1920, 1080),
+    '2560x1600': (2560, 1600)
+}
+
 def fill(surface, color):
     w, h = surface.get_size()
     r, g, b, _ = color
@@ -11,7 +21,7 @@ def fill(surface, color):
             surface.set_at((x, y), pygame.Color(r, g, b, a))
 
 def main():
-    resolution = (800, 600)
+    resolution = WINDOW_SIZE['1920x1080']
     speed = [1, 1]
     colors = [
             pygame.Color(60, 240, 75),
